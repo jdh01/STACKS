@@ -1,65 +1,57 @@
 #include <iostream>
 
 #define MAX_SIZE 101
+int top = -1;
+int A[MAX_SIZE];
 
-struct Stack
+void Push(int x)
 {
-    int A[MAX_SIZE];
-    int top = -1;
-};
 
-Stack* Push(Stack** stack, int x)
-{
-    Stack* temp = new Stack;
-    if (temp->top == MAX_SIZE - 1)
+    if (top == MAX_SIZE - 1)
     {
         std::cout << "[ERROR] Stack overflow.";
-        return *stack;
+        return;
     }
-    temp->top = temp->top + 1;
-    std::cout << temp->top << std::endl;
-    temp->A[temp->top] = x;
-    std::cout << temp->A[temp->top] << std::endl;
-    *stack = temp;
-    return *stack;
+    top++;
+    //std::cout << top << std::endl;
+    A[top] = x;
+    //std::cout << A[top] << std::endl;
 }
 
-void Pop(Stack** stack)
+void Pop()
 {
-    Stack* temp = *stack;
-    if (temp->top == -1)
+    if (top == -1)
     {
         std::cout << "[ERROR] No element to pop.";
         return;
     }
-    temp->top--;
-    *stack = temp;
+    top--;
 }
 
-int Top(Stack* stack)
+int Top()
 {
-    return stack->A[stack->top];
+    return A[top];
 }
 
-void Print(Stack* stack)
+void Print()
 {
-    Stack* temp = stack;
-    for (int i = 0; i <= temp->top; i++)
+    for (int i = 0; i <= top; i++)
     {
-        std::cout << temp->A[i] << " ";
+        std::cout << A[i] << " ";
     }
+    std::cout << "\n";
 }
 
 int main()
 {
-    Stack* stack = NULL;
-    Push(&stack, 1);
-    Push(&stack, 2);
-    Push(&stack, 3);
-    Push(&stack, 4);
-    Push(&stack, 5);
-    Print(stack);
-    Top(stack);
-    Pop(&stack);
+    Push(1);
+    Push(2);
+    Push(3);
+    Push(4);
+    Push(5);
+    Print();
+    Top();
+    Pop();
+    Print();
     std::cin.get();
 }
